@@ -8,14 +8,14 @@ Dockerizar una aplicación de e-commerce de productos ecológicos basada en 3 mi
 ---
 
 ## Arquitectura del Proyecto
-
+```
 Cliente → alunad.com (Apache - 192.168.100.3 - servidorUbuntu2)
         → HAProxy :8080 (192.168.100.3 - servidorUbuntu2)
             → productos-service :3000 (192.168.100.2 - servidorUbuntu1)
             → usuarios-service  :3001 (192.168.100.2 - servidorUbuntu1)
             → ordenes-service   :3002 (192.168.100.2 - servidorUbuntu1)
         → MySQL x3 (contenedores en 192.168.100.2)
-
+```
 ---
 
 ## Servidores
