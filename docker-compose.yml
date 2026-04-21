@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+
+  # BASE DE DATOS PRODUCTOS
+  productos-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: productos_abonos
+    volumes:
+      - productos-db-data:/var/lib/mysql
+      - ./productos_abonos.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - alunad-net
+
+  # MICROSERVICIO PRODUCTOS
+  productos-service:
+    build: ./productos
+    environment:
+      DB_HOST: productos-db
+      DB_USER: root
+      DB_PASSWORD: mysql
+      DB_NAME: productos_abonos
+    ports:
+      - "3000:3000"
+    depends_on:
+      - productos-db
+    networks:
+      - alunad-net
+
+  # BASE DE DATOS USUARIOS
+  usuarios-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: usuarios_abonos
+    volumes:
+      - usuarios-db-data:/var/lib/mysql
+      - ./usuarios_abonos.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - alunad-net
+
+  # MICROSERVICIO USUARIOS
+  usuarios-service:
+    build: ./usuarios
+    environment:
+      DB_HOST: usuarios-db
+      DB_USER: root
+      DB_PASSWORD: mysql
+      DB_NAME: usuarios_abonos
+    ports:
+      - "3001:3001"
+    depends_on:
+      - usuarios-db
+    networks:
+      - alunad-net
+
+  # BASE DE DATOS ORDENES
+  ordenes-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: ordenes_abonos
+    volumes:
+      - ordenes-db-data:/var/lib/mysql
+      - ./ordenes_abonos.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - alunad-net
+
+  # MICROSERVICIO ORDENES
+  ordenes-service:
+    build: ./ordenes
+    environment:
+      DB_HOST: ordenes-db
+      DB_USER: root
+      DB_PASSWORD: mysql
+      DB_NAME: ordenes_abonos
+      PRODUCTOS_URL: http://productos-service:3000
+      USUARIOS_URL: http://usuarios-service:3001
+    ports:
+      - "3002:3002"
+    depends_on:
+      - ordenes-db
+      - productos-service
+      - usuarios-service
+    networks:
+      - alunad-net
+
+volumes:
+  productos-db-data:
+  usuarios-db-data:
+  ordenes-db-data:
+
+networks:
+  alunad-net:
+    driver: bridge
