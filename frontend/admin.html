@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Humus Alunad - Panel de Administracion</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 20h10"/>
+                            <path d="M10 20c5.5-2.5.8-6.4 3-10"/>
+                            <path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/>
+                            <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/>
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        <h2>Tienda Humus Alunad</h2>
+                        <span>Panel Admin</span>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <span class="nav-section-title">Principal</span>
+                    <button class="nav-item active" data-section="dashboard">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="7" height="9" x="3" y="3" rx="1"/>
+                            <rect width="7" height="5" x="14" y="3" rx="1"/>
+                            <rect width="7" height="9" x="14" y="12" rx="1"/>
+                            <rect width="7" height="5" x="3" y="16" rx="1"/>
+                        </svg>
+                        Dashboard
+                    </button>
+                </div>
+                
+                <div class="nav-section">
+                    <span class="nav-section-title">Gestion</span>
+                    <button class="nav-item" data-section="productos">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m7.5 4.27 9 5.15"/>
+                            <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+                            <path d="m3.3 7 8.7 5 8.7-5"/>
+                            <path d="M12 22V12"/>
+                        </svg>
+                        Productos
+                    </button>
+                    <button class="nav-item" data-section="usuarios">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                        Usuarios
+                    </button>
+                    <button class="nav-item" data-section="ordenes">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z"/>
+                            <path d="M15 3v4a2 2 0 0 0 2 2h4"/>
+                            <path d="M10 12h4"/>
+                            <path d="M10 16h4"/>
+                        </svg>
+                        Ordenes
+                    </button>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">AD</div>
+                    <div class="user-details">
+                        <div class="name" id="userName">Administrador</div>
+                        <div class="role">Admin</div>
+                    </div>
+                    <button class="btn-icon" id="logoutBtnAdmin" title="Cerrar sesion">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" x2="9" y1="12" y2="12"/>
+                    </svg>
+                </button>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <div id="productSuccess" class="success-message" style="display: none; position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
+            <div id="userSuccess" class="success-message" style="display: none; position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
+            <div id="orderSuccess" class="success-message" style="display: none; position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
+            
+            <!-- Dashboard Section -->
+            <section id="section-dashboard" class="section active">
+                <header class="main-header">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                        <p>Resumen general del sistema</p>
+                    </div>
+                </header>
+                
+                <div class="main-body">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon products">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m7.5 4.27 9 5.15"/>
+                                    <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+                                    <path d="m3.3 7 8.7 5 8.7-5"/>
+                                    <path d="M12 22V12"/>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <h4>Productos</h4>
+                                <div class="value" id="totalProductos">0</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon users">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <h4>Usuarios</h4>
+                                <div class="value" id="totalUsuarios">0</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon orders">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z"/>
+                                    <path d="M15 3v4a2 2 0 0 0 2 2h4"/>
+                                    <path d="M10 12h4"/>
+                                    <path d="M10 16h4"/>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <h4>Ordenes</h4>
+                                <div class="value" id="totalOrdenes">0</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon revenue">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" x2="12" y1="2" y2="22"/>
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <h4>Ventas Totales</h4>
+                                <div class="value" id="totalVentas">$0</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Orders -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Ordenes Recientes</h3>
+                            <button class="btn btn-secondary btn-sm" onclick="showSection('ordenes')">Ver todas</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Cliente</th>
+                                            <th>Total</th>
+                                            <th>Estado</th>
+                                            <th>Fecha</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentOrdersTable">
+                                        <tr>
+                                            <td colspan="5" class="text-center">Cargando...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Productos Section -->
+            <section id="section-productos" class="section">
+                <header class="main-header">
+                    <div class="page-title">
+                        <h1>Productos y Servicios</h1>
+                        <p>Gestiona el catalogo de productos y servicios</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" onclick="openProductModal()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14"/>
+                                <path d="M12 5v14"/>
+                            </svg>
+                            Nuevo Producto
+                        </button>
+                    </div>
+                </header>
+                
+                <div class="main-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                            <th>Tipo</th>
+                                            <th>Precio</th>
+                                            <th>Cantidad</th>
+                                            <th>Descripcion</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="productosTable">
+                                        <tr>
+                                            <td colspan="7" class="text-center">Cargando...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Usuarios Section -->
+            <section id="section-usuarios" class="section">
+                <header class="main-header">
+                    <div class="page-title">
+                        <h1>Usuarios</h1>
+                        <p>Gestiona los usuarios del sistema</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" onclick="openUserModal()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14"/>
+                                <path d="M12 5v14"/>
+                            </svg>
+                            Nuevo Usuario
+                        </button>
+                    </div>
+                </header>
+                
+                <div class="main-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                            <th>Email</th>
+                                            <th>Usuario</th>
+                                            <th>Telefono</th>
+                                            <th>Rol</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="usuariosTable">
+                                        <tr>
+                                            <td colspan="7" class="text-center">Cargando...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Ordenes Section -->
+            <section id="section-ordenes" class="section">
+                <header class="main-header">
+                    <div class="page-title">
+                        <h1>Ordenes</h1>
+                        <p>Gestiona los pedidos de los clientes</p>
+                    </div>
+                </header>
+                
+                <div class="main-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Cliente</th>
+                                            <th>Direccion</th>
+                                            <th>Total</th>
+                                            <th>Pago</th>
+                                            <th>Estado</th>
+                                            <th>Domiciliario</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ordenesTable">
+                                        <tr>
+                                            <td colspan="8" class="text-center">Cargando...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Modal Producto -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="productModalTitle">Nuevo Producto</h2>
+                <button type="button" class="modal-close" onclick="closeProductModal()">&times;</button>
+            </div>
+            <form id="productForm" class="modal-form">
+                <input type="hidden" id="productId">
+                <div class="form-group">
+                    <label for="productNombre">Nombre</label>
+                    <input type="text" id="productNombre" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productTipo">Tipo</label>
+                        <select id="productTipo" required>
+                            <option value="">Seleccionar...</option>
+                            <option value="producto">Producto</option>
+                            <option value="servicio">Servicio</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrecio">Precio</label>
+                        <input type="number" id="productPrecio" min="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="productCantidad">Cantidad (Stock)</label>
+                    <input type="number" id="productCantidad" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="productDescripcion">Descripcion</label>
+                    <textarea id="productDescripcion" rows="3"></textarea>
+                </div>
+                <div id="productError" class="error-message" style="display: none;"></div>
+                <button type="submit" class="btn btn-primary btn-block">Guardar Producto</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal Usuario -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="userModalTitle">Nuevo Usuario</h2>
+                <button type="button" class="modal-close" onclick="closeUserModal()">&times;</button>
+            </div>
+            <form id="userForm" class="modal-form">
+                <input type="hidden" id="userId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="userNombre">Nombre Completo</label>
+                        <input type="text" id="userNombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userEmail">Email</label>
+                        <input type="email" id="userEmail" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="userUsuario">Usuario</label>
+                        <input type="text" id="userUsuario" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userPassword">Contraseña</label>
+                        <input type="password" id="userPassword">
+                        <small style="color: var(--text-muted); font-size: 12px;">Dejar vacio para mantener la actual</small>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="userTelefono">Telefono</label>
+                        <input type="tel" id="userTelefono" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userRol">Rol</label>
+                        <select id="userRol" required>
+                            <option value="cliente">Cliente</option>
+                            <option value="admin">Administrador</option>
+                            <option value="domiciliario">Domiciliario</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="userDireccion">Direccion</label>
+                    <input type="text" id="userDireccion" required>
+                </div>
+                <div id="userError" class="error-message" style="display: none;"></div>
+                <button type="submit" class="btn btn-primary btn-block">Guardar Usuario</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal Orden Detalle -->
+    <div id="orderDetailModal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h2>Detalle de Orden</h2>
+                <button type="button" class="modal-close" onclick="closeOrderDetailModal()">&times;</button>
+            </div>
+            <div class="modal-form" id="orderDetailContent">
+                <!-- Content will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Asignar Domiciliario -->
+<div id="assignDeliveryModal" class="modal">
+    <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-header">
+            <h2>Asignar Domiciliario</h2>
+            <button type="button" class="modal-close" onclick="closeAssignDeliveryModal()">&times;</button>
+        </div>
+        <form id="assignDeliveryForm" class="modal-form">
+            <input type="hidden" id="deliveryOrderId">
+
+            <div class="form-group">
+                <label for="deliverySelect">Nombre Domiciliario</label>
+                <select id="deliverySelect" required>
+                    <option value="">Seleccionar domiciliario</option>
+                </select>
+            </div>
+
+            <div id="deliveryError" class="error-message" style="display: none;"></div>
+            <button type="submit" class="btn btn-primary btn-block">Asignar</button>
+        </form>
+    </div>
+</div>
+    
+    <script src="js/config.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

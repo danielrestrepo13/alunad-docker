@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Humus Alunad</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="store-layout">
+        <!-- Header -->
+        <header class="store-header">
+            <div class="store-logo">
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 20h10"/>
+                        <path d="M10 20c5.5-2.5.8-6.4 3-10"/>
+                        <path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/>
+                        <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/>
+                    </svg>
+                </div>
+                <h1>Tienda Humus Alunad</h1>
+            </div>
+            
+            <nav class="store-nav">
+                <a href="#" data-view="inicio" class="active">Inicio</a>
+                <a href="#" data-view="productos">Productos</a>
+                <a href="#" data-view="servicios">Servicios</a>
+                <a href="#" data-view="ordenes">Mis Ordenes</a>
+            </nav>
+            
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <button class="cart-btn" id="openCartBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="8" cy="21" r="1"/>
+                        <circle cx="19" cy="21" r="1"/>
+                        <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+                    </svg>
+                    <span>Carrito</span>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                
+                <div class="user-info" style="background: transparent; padding: 0;">
+                    <div class="user-avatar" id="clientAvatar">US</div>
+                    <div class="user-details">
+                        <div class="name" id="clientName">Usuario</div>
+                        <a href="#"  id="logoutBtn" style="font-size: 12px; color: var(--text-muted);">Cerrar sesion</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    
+        <!-- Main Content -->
+        <main class="store-main">
+            <!-- Vista de Productos -->
+            <div id="view-productos" class="store-view active">
+                <div class="section-header">
+                    <h2>Nuestros Productos</h2>
+                    <!--<div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="todos">Todos</button>
+                        <button class="filter-tab" data-filter="compost">Compost</button>
+                        <button class="filter-tab" data-filter="abono">Abonos</button>
+                        <button class="filter-tab" data-filter="otro">Otros</button>
+                    </div>-->
+                </div>
+                
+                <div class="products-grid" id="productosGrid">
+                    <!-- Los productos se cargan dinamicamente -->
+                    <div class="empty-state">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m7.5 4.27 9 5.15"/>
+                            <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+                        </svg>
+                        <h3>Cargando productos...</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vista de Servicios -->
+            <div id="view-servicios" class="store-view" style="display: none;">
+                <div class="section-header">
+                    <h2>Nuestros Servicios</h2>
+                </div>
+                
+                <div class="products-grid" id="serviciosGrid">
+                    <!-- Los servicios se cargan dinamicamente -->
+                    <div class="empty-state">
+                        <h3>Cargando servicios...</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vista de Mis Ordenes -->
+            <div id="view-ordenes" class="store-view" style="display: none;">
+                <div class="section-header">
+                    <h2>Mis Órdenes</h2>
+                    <p>Historial de tus pedidos y estado actual</p>
+                </div>
+                
+                <div id="ordenesClienteList" class="orders-grid">
+                    <div class="empty-state">
+                        <div class="spinner"></div> 
+                        <p>Cargando tus órdenes...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vista de Checkout -->
+            <div id="view-checkout" class="store-view" style="display: none;">
+                <div class="section-header">
+                    <h2>Finalizar Compra</h2>
+                </div>
+                
+                <div class="checkout-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Resumen de tu Pedido</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="checkoutItems">
+                                <!-- Items del carrito -->
+                            </div>
+                            <div style="border-top: 1px solid var(--border-light); padding-top: 16px; margin-top: 16px;">
+                                <div style="display: flex; justify-content: space-between; font-size: 18px; font-weight: 700;">
+                                    <span>Total:</span>
+                                    <span id="checkoutTotal" style="color: var(--primary);">$0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h3>Datos de Entrega</h3>
+                        </div>
+                        <div class="card-body">
+                            <form id="checkoutForm" class="checkout-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="checkoutNombre">Nombre Completo</label>
+                                        <input type="text" id="checkoutNombre" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="checkoutEmail">Email</label>
+                                        <input type="email" id="checkoutEmail" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="checkoutTelefono">Telefono</label>
+                                        <input type="tel" id="checkoutTelefono" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="checkoutMetodoPago">Metodo de Pago</label>
+                                        <select id="checkoutMetodoPago" required>
+                                            <option value="efectivo">Efectivo contra entrega</option>
+                                            <option value="transferencia">Transferencia bancaria</option>
+                                            <option value="nequi">Nequi</option>
+                                            <option value="daviplata">Daviplata</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="checkoutDireccion">Direccion de Entrega</label>
+                                    <input type="text" id="checkoutDireccion" placeholder="Ciudad - Direccion completa" required>
+                                </div>
+                                
+                                <div id="checkoutError" class="error-message" style="display: none;"></div>
+                                <div id="checkoutSuccess" class="success-message" style="display: none;"></div>
+                                
+                                <div style="display: flex; gap: 12px; margin-top: 24px;">
+                                    <button type="button" class="btn btn-secondary" onclick="showView('productos')">Seguir Comprando</button>
+                                    <button type="submit" class="btn btn-primary" style="flex: 1;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M5 12h14"/>
+                                            <path d="m12 5 7 7-7 7"/>
+                                        </svg>
+                                        Confirmar Pedido
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Tu Carrito</h2>
+            <button class="modal-close" id="closeCartBtn">&times;</button>
+        </div>
+        
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="8" cy="21" r="1"/>
+                    <circle cx="19" cy="21" r="1"/>
+                    <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+                </svg>
+                <p style="margin-top: 12px;">Tu carrito esta vacio</p>
+            </div>
+        </div>
+        
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0</span>
+            </div>
+            <button class="btn btn-primary btn-block" onclick="goToCheckout()">
+                Proceder al Pago
+            </button>
+        </div>
+    </aside>
+    
+    <script src="js/config.js"></script>
+    <script src="js/cliente.js"></script>
+</body>
+</html>
