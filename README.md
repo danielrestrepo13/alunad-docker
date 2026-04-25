@@ -1,6 +1,9 @@
 # alunad-docker
 Proyecto Tienda Humus Alunad - Microservicios Node.js dockerizados con HAProxy y Docker Swarm
 
+# Dataset
+https://www.kaggle.com/datasets/danielrestrepo13/tienda-humus-alunad-dataset-ecommerce-ecologico
+
 ## Objetivo Principal
 
 Dockerizar una aplicación de e-commerce de productos ecológicos basada en 3 microservicios Node.js, desplegarla con Docker Compose, configurar HAProxy como balanceador de carga, implementar Docker Swarm con placement constraints, y realizar pruebas de carga con JMeter.
